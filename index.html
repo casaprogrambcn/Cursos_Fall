@@ -14,7 +14,7 @@
       --crimson-light: #f9eced;
       --gold: #C99700;
       --gray-dark: #2d2d2d;
-      --gray-mid: #5c5c5c;
+      --gray-mid: #444444;
       --gray-light: #f4f3f1;
       --border: rgba(0,0,0,0.10);
       --border-md: rgba(0,0,0,0.20);
@@ -192,7 +192,7 @@
       background: var(--crimson-light); color: var(--crimson-dark);
     }
     .comment-author { font-size: 13px; font-weight: 600; color: var(--gray-dark); }
-    .comment-text { font-size: 13px; color: var(--gray-mid); line-height: 1.6; font-weight: 300; }
+    .comment-text { font-size: 13px; color: #333333; line-height: 1.6; font-weight: 400; }
 
     .empty { text-align: center; padding: 2.5rem; color: var(--gray-mid); font-size: 14px; }
     .disclaimer {
@@ -295,6 +295,12 @@ const COURSES = [
     grupo: "G2",
     comments: [
       { name: "Emma", nota_academica: 10, text: "Al principio no parecía muy interesante, pero la profesora la hizo más interesante. Lo mismo con las lecturas. No tengo problemas para seguirla." }
+      { name: "Jazlyn", nota_academica: 10, text: "A veces la profesora es un poco difícil de entender, pero me gusta mucho. Las lecturas son complicadas." }
+      { name: "Barbara", nota_academica: 9, text: "" }
+      { name: "Melanie", nota_academica: 9, text: "" }
+      { name: "Judith", nota_academica: 6, text: "" }
+      { name: "Elizabeth", nota_academica: 6, text: "" }
+      
     ]
   },
   {
@@ -308,6 +314,10 @@ const COURSES = [
     comments: [
       { name: "Emma", nota_academica: 9, text: "Me gusta mucho. El profesor usa muchas fuentes en inglés. No hay exámenes. El contenido es un poco abstracto/teórico, pero también trabajamos mucho con los estudiantes locales, vemos películas. Interesante y muy diferente." },
       { name: "Zara", nota_academica: 9.5, text: "Profesor muy amable, con experiencia en EEUU y fascinado por la opinión de los estudiantes CASA. Mucho trabajo pero no muy difícil. Escribir reflexiones, etc. No hay exámenes. 2 presentaciones y papers." }
+      { name: "Benny", nota_academica: null, text: "muy aburrido, pero muy fácil también." }
+      { name: "Amy", nota_academica: 9, text: "" }
+      { name: "May", nota_academica: 8.5, text: "" }
+    ]
     ]
   },
   {
@@ -430,7 +440,148 @@ const COURSES = [
     comments: [
       { name: "Mia", nota_academica: 8.4, text: "Me gusta, él es muy amigable. El curso es tipo lecture, y como evaluación se ha de diseñar un sitio web. No muy exigente." }
     ]
-  }
+  {
+    id: 16,
+    name: "Ilustración Creativa",
+    code: "366484",
+    uni: "UB",
+    dept: "Bellas Artes",
+    profesor: "Marta María Lafuente",
+    grupo: "M1",
+    comments: [
+      { name: "Javier", nota_academica: 7.3, text: ". Buen complemento para clases que he tomado antes. Profesora muy amable y calmada, que especifica qué hay que hacer para la siguiente semana y se prepara bien la clase. " },
+    ]
+  },
+   {
+    id: 17,
+    name: "Visión Artificial",
+    code: "364315",
+    uni: "UB",
+    dept: "Ingeniería Informática",
+    profesor: "´Petia Ivanova",
+    grupo: "null",
+    comments: [
+      { name: "Rasheed", nota_academica: 6.2, text: "me gusta mucho. Evaluación: “Mid term”, proyecto y examen final en remoto en enero y sin vigilar (“non-proctored”)." },
+    ]
+  },
+     {
+    id: 18,
+    name: "Desarrollo en la Infancia",
+    code: "361080",
+    uni: "UB",
+    dept: "Psicología",
+    profesor: "Montserrat Celdran y Maite Durán",
+    grupo: "M4",
+    comments: [
+      { name: "Kashton", nota_academica: null, text: "Prof. Montserrat Celdran Castro (clase magistral/”lecture”). Prof. Maite Durán (tutorías/”seminars”), más estricta, pero muy amable. Muy buen curso, contenido y profesoras (habla rápido y con acento, hay que prestar atención). ." },
+      { name: "Amberly", nota_academica: 7.4, text: "" }
+      { name: "Arizona", nota_academica: 7.2, text: "" }
+      { name: "Kaithlyn", nota_academica: 7.2, text: "" }
+      { name: "Alex", nota_academica: 7.3, text: "" }
+      { name: "Jo", nota_academica: 7.7, text: "" }
+      { name: "Bella", nota_academica: 8, text: "" }
+      { name: "Sofia", nota_academica: 8.7, text: "" }
+    ]
+  },
+   {
+    id: 19,
+    name: "Sociedad, Salud y Bienestar",
+    code: "361048",
+    uni: "UB",
+    dept: "Psicología",
+    profesor: "Angela Castrechini",
+    grupo: "M5",
+    comments: [
+      { name: "Keira", nota_academica: 8.6, text: "me gusta mucho porque tiene clases magistrales y seminarios. Para la evaluación, solo hay una presentación (con otros estudiantes extranjeros) y un examen final." },
+      { name: "Jo", nota_academica: 8.2, text: "" }
+      { name: "Adriana", nota_academica: 7.5, text: "" }
+      ]
+  },
+     {
+    id: 20,
+    name: "Análisis de la Comunicación Social y las Redes Sociales",
+    code: "367474",
+    uni: "UB",
+    dept: "Psicología",
+    profesor: "Angela Castrechini y Yirsa Jiménez",
+    grupo: "M5",
+    comments: [
+      { name: "Alex", nota_academica: 7.9, text: "Prof. Castrecchini (muy amable) & Prof. Yirsa Jiménez (un poco desorganizada). Clase un poco desorganizada (hay tres profesores), pero contenido interesante. Curso para estudiantes que ya están a punto de graduarse." },
+      ]
+  },
+       {
+    id: 21,
+    name: "Dibujo I",
+    code: "210101",
+    uni: "UPC",
+    dept: "Arquitectura",
+    profesor: "Héctor Mendoza",
+    grupo: "T2",
+    comments: [
+      { name: "Javier", nota_academica: 8.3, text: "Muy bien organizada, comentarios/consejos/trabajos semanales. Hago dibujo técnico a mano, que nunca había hecho, y croquis, que ya conozco. Me gusta mucho. Profesores muy amables." },
+      ]
+  },
+       {
+    id: 22,
+    name: "Ciudades en la Historia",
+    code: "210285",
+    uni: "UPC",
+    dept: "Arquitectura",
+    profesor: "Eulalia Gómez",
+    grupo: "1SM",
+    comments: [
+      { name: "Matt", nota_academica: 4, text: "Hay una clase magistral cada semana sobre varias ciudades. Profesora amable y calmada. Hacemos tours por la ciudad." },
+      ]
+  },
+        {
+    id: 23,
+    name: "La Arquitectura Moderna en España: una Visión Crítica",
+    code: "210301",
+    uni: "UPC",
+    dept: "Arquitectura",
+    profesor: "Carolina Garcia",
+    grupo: "1SM",
+    comments: [
+      { name: "George", nota_academica: 8.5, text: "tres profesores. Clase teórica semanal, mucho contenido. Hacen tours por la ciudad. La mitad de los estudiantes son internacionales." },
+      ]
+  },
+        {
+    id: 24,
+    name: "Teoría Política II",
+    code: "21683",
+    uni: "UPF",
+    dept: "Ciencias Políticas",
+    profesor: "null",
+    grupo: "G1",
+    comments: [
+      { name: "Bedansh", nota_academica: 8.5, text: "clase no muy organizada, profesor amable. Buen contenido." },
+      ]
+  },
+        {
+    id: 24,
+    name: "Teoría Política II",
+    code: "21683",
+    uni: "UPF",
+    dept: "Ciencias Políticas",
+    profesor: "null",
+    grupo: "G1",
+    comments: [
+      { name: "Bedansh", nota_academica: 8.2, text: "clase no muy organizada, profesor amable. Buen contenido." },
+      ]
+  },
+        {
+    id: 25,
+    name: "Historia de la Comunicación",
+    code: "367835",
+    uni: "UB",
+    dept: "Comunicación Audiovisual",
+    profesor: "Olatz Larrea",
+    grupo: "G1",
+    comments: [
+      { name: "Bedansh", nota_academica: 9.1, text: "profesora muy divertida. Los alumnos son un poco ruidosos (“freshmen”) y algunos hablan en catalán, lo que les impide participar en los debates. Evaluación: tres presentaciones y una es la final" },
+      { name: "Kim", nota_academica: 9, text: "muy fácil, buena profesora" },
+      ]
+  },
 ];
 
 function avgNota(c){
