@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cursos CASA Barcelona — Valoraciones Fall</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --crimson: #A51C30;
+      --crimson-dark: #7A1424;
+      --crimson-light: #f9eced;
+      --gray-dark: #2d2d2d;
+      --gray-mid: #444444;
+      --gray-light: #f4f3f1;
+      --border: rgba(0,0,0,0.10);
+      --border-md: rgba(0,0,0,0.20);
+      --white: #ffffff;
+      --radius-md: 8px;
+      --radius-lg: 12px;
+      --serif: 'Playfair Display', Georgia, serif;
+      --sans: 'Source Sans 3', system-ui, sans-serif;
+    }
+    body { font-family: var(--sans); background: var(--gray-light); color: var(--gray-dark); min-height: 100vh; }
+    .site-header { background: var(--white); border-bottom: 3px solid var(--crimson); }
+    .header-inner { max-width: 900px; margin: 0 auto; padding: 20px 1.5rem 16px; display: flex; align-items: center; gap: 28px; }
+    .logo-img { height: 52px; width: auto; flex-shrink: 0; }
+    .header-divider { width: 1px; height: 44px; background: var(--border-md); flex-shrink: 0; }
+    .header-text h1 { font-family: var(--serif); font-size: 20px; font-weight: 600; color: var(--gray-dark); margin-bottom: 2px; }
+    .header-text p { font-size: 13px; color: var(--gray-mid); font-weight: 300; }
+    .header-badge { margin-left: auto; background: var(--crimson-light); color: var(--crimson-dark); border: 1px solid rgba(165,28,48,0.2); border-radius: 99px; padding: 5px 14px; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; white-space: nowrap; }
+    .container { max-width: 900px; margin: 0 auto; padding: 1.75rem 1.5rem 3rem; }
+    .stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin-bottom: 1.5rem; }
+    .stat { background: var(--white); border-radius: var(--radius-md); padding: 14px 16px; border: 0.5px solid var(--border); border-top: 3px solid var(--crimson); }
+    .stat-label { font-size: 10px; color: var(--gray-mid); margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600; }
+    .stat-value { font-size: 24px; font-weight: 600; font-family: var(--serif); color: var(--gray-dark); }
+    .top-bar { display: flex; gap: 10px; margin-bottom: 1.25rem; flex-wrap: wrap; }
+    .top-bar input, .top-bar select { flex: 1; min-width: 150px; height: 38px; font-size: 14px; font-family: var(--sans); border: 0.5px solid var(--border-md); border-radius: var(--radius-md); background: var(--white); color: var(--gray-dark); padding: 0 12px; outline: none; }
+    .top-bar input:focus, .top-bar select:focus { border-color: var(--crimson); box-shadow: 0 0 0 2px rgba(165,28,48,0.12); }
+    .course-list { display: flex; flex-direction: column; gap: 8px; }
+    .course-card { background: var(--white); border: 0.5px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; transition: border-color 0.15s, box-shadow 0.15s; }
+    .course-card:hover { border-color: var(--border-md); box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+    .course-card.open { border-color: rgba(165,28,48,0.35); box-shadow: 0 2px 12px rgba(165,28,48,0.08); }
+    .course-header { display: flex; align-items: flex-start; gap: 12px; padding: 14px 16px; cursor: pointer; user-select: none; }
+    .uni-badge { font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: var(--radius-md); white-space: nowrap; margin-top: 2px; flex-shrink: 0; letter-spacing: 0.03em; }
+    .badge-ub { background: #dce8f5; color: #0c3472; }
+    .badge-upf { background: #f0e0e3; color: #7A1424; }
+    .badge-casa { background: var(--crimson-light); color: var(--crimson-dark); }
+    .badge-uab { background: #e2f0e2; color: #1a5c1a; }
+    .badge-upc { background: #fdf5d0; color: #7a6200; }
+    .course-info { flex: 1; min-width: 0; }
+    .course-name { font-size: 15px; font-weight: 600; margin-bottom: 2px; color: var(--gray-dark); }
+    .course-meta-text { font-size: 12px; color: var(--gray-mid); font-weight: 300; }
+    .course-right { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; flex-shrink: 0; }
+    .nota-num { font-weight: 700; font-size: 18px; font-family: var(--serif); }
+    .nota-num.alta { color: #0a6644; }
+    .nota-num.media { color: #b06a00; }
+    .nota-num.baja { color: #a32d2d; }
+    .nota-num.nd { color: var(--gray-mid); font-size: 14px; font-family: var(--sans); }
+    .nota-label { font-size: 10px; color: var(--gray-mid); text-align: right; letter-spacing: 0.03em; }
+    .n-comments { font-size: 11px; color: var(--gray-mid); white-space: nowrap; }
+    .chevron { font-size: 16px; color: var(--gray-mid); transition: transform 0.2s; margin-top: 3px; }
+    .open .chevron { transform: rotate(180deg); }
+    .course-body { border-top: 0.5px solid var(--border); padding: 18px; display: none; }
+    .open .course-body { display: block; }
+    .body-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    @media(max-width:620px){ .body-grid { grid-template-columns: 1fr; } }
+    .section-title { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--crimson-dark); margin-bottom: 10px; padding-bottom: 6px; border-bottom: 1px solid var(--crimson-light); }
+    .nota-panel { background: var(--gray-light); border-radius: var(--radius-md); padding: 14px 16px; }
+    .nota-big { font-size: 44px; font-weight: 600; line-height: 1; font-family: var(--serif); margin-bottom: 2px; }
+    .nota-big.alta { color: #0a6644; }
+    .nota-big.media { color: #b06a00; }
+    .nota-big.baja { color: #a32d2d; }
+    .nota-big.nd { color: var(--gray-mid); font-size: 28px; font-family: var(--sans); }
+    .nota-sub { font-size: 11px; color: var(--gray-mid); margin-bottom: 14px; }
+    .nota-rows { display: flex; flex-direction: column; gap: 7px; }
+    .nota-row { display: flex; align-items: center; gap: 8px; font-size: 12px; }
+    .nota-row-name { flex: 0 0 60px; color: var(--gray-mid); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .nota-bar-wrap { flex: 1; height: 5px; background: rgba(0,0,0,0.08); border-radius: 99px; overflow: hidden; }
+    .nota-bar { height: 100%; border-radius: 99px; background: var(--crimson); }
+    .nota-row-val { font-weight: 600; min-width: 30px; text-align: right; color: var(--gray-dark); }
+    .comments-list { display: flex; flex-direction: column; gap: 10px; }
+    .comment { padding: 11px 13px; background: var(--gray-light); border-radius: var(--radius-md); border-left: 3px solid var(--crimson-light); }
+    .comment-top { display: flex; align-items: center; gap: 9px; margin-bottom: 6px; }
+    .avatar { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; flex-shrink: 0; background: var(--crimson-light); color: var(--crimson-dark); }
+    .comment-author { font-size: 13px; font-weight: 600; color: var(--gray-dark); }
+    .comment-text { font-size: 13px; color: #333333; line-height: 1.6; font-weight: 400; }
+    .empty { text-align: center; padding: 2.5rem; color: var(--gray-mid); font-size: 14px; }
+    .disclaimer { font-size: 11px; color: var(--gray-mid); text-align: center; margin-top: 2.5rem; padding-top: 1rem; border-top: 0.5px solid var(--border); font-style: italic; }
+    @media(max-width:500px){ .header-badge { display: none; } .course-right .n-comments { display: none; } }
+  </style>
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <img class="logo-img" src="data:image/jpeg;base64,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Sei8VLmoozglW4Oc0s3+qNAD2OFz1qozbm6YpzNlR6Uwndz3oASjNFFABRRRQAE5680UUUAFFFFABRRSgZVqAFQqHUnirmc81TUbmAq2qhRgUAOooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKD0NFB6GgD5w8Qf8jJqn/X5N/wChmijxB/yMmqf9fk3/AKGaK5Jbn6lhP93h6L8j6PooorrPy0KKKKACiiigAooooAKKKKACoZkJXIyalJxTTubjoPWgCqqFiaUxMBkDirKrtp9AFCip5kGd1QUAFFFFABRRSqpZsCgA68VKke7BLdO1SpGFXB5NJtWME4+tACTEBcnJ9qjibYeRnPelZEdcxjnvipIlIX5u3SgB54UnqKqOctxVxhlTVIj5iKAEp6xu3bH1qVIVCgkZNTjpQAxE2r70+oHkkVsBfpxUy52jPWgBaKKaTgEmgBksmzjvUHmtuznP40jNvfP5UOqpjnJoAmW4/vDFSbx2785qshXGHXNIz7unTsKAJmuPbNQmRicjgelNooAerHa3PFMPNFFABRRRQAUUUUAFFFFABRRU0Cg5JFAEaqcrxxn0qebCxsfXipqhuM7B6ZoAeiKq8DFPqGA5Q9+amoAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACg9DRQehoA+cPEH/ACMmqf8AX5N/6GaKPEH/ACMmqf8AX5N/6GaK5Jbn6lhP93h6L8j6PooorrPy0KKKKACiiigAooooAKKKKACiiigAooooAZJypFU6ut908VTYYNACUUUUAFSRMEfPQVHRQBeByM1FOSEGKiiYh8ZwPSklclyOwNACxMEY5qxG4dc1TqWJ9vB6GgC1URhUyb+9S0UAFFFFABRRTWYKOTQA6q05bdgc0+MkMVJ96c/ygNgEjvQBBF/rOlK8eHJLAZp6hVcvvFRSPuagBh4PrRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABU0cqouMVDRQBdVw/IoZdykVDFnapHrirFAEcS7VI96kpKWgAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooo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6L8j6PooorrPy0KKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAayqwwaqyJ5Zx2NXKr3H3loAgooooAKmtx8xPpSRRb+T0qwihR8vSgBwGBRRRQAUUUUAFFFFAFa4B3g1DVqcZjqrQAVJHGX9hUffFWoU2L1zmgBJD5cWFogGVLHqadJGZAOacBhQKAHUUUUAFFFFABRRRQAUUUlAC1XllOdq8YqJnZu+RTaAFLF+tSrNhCrDnHFQ0UAWLdsqRU9UQ20g1cUhhmgB1FIKWgBCaWiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACg9DRQehoA+cPEH/Iyap/1+Tf8AoZoo8Qf8jJqn/X5N/wChmiuSW5+pYT/d4ei/I+j6KKK6z8tCiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACq9z95asVWnP7z8KAIaAMkClAzx1NWIo9q/OBmgB8aBFxT6KKACiiigAooooAKKKKAEIyDVMq24gKau0UAVo4jnc/HtVmiigAooooAKKKKACiiigAooooAKQ9KWkIyKAKR60gBPTmrIgUdeakVQOnSgCl04oq3JGHxntVU9TQAlW4hiMVBEm9uegq3QADpRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUHoaKD0NAHzh4g/wCRk1T/AK/Jv/QzRR4g/wCRk1T/AK/Jv/QzRXJLc/UsJ/Ah6L8j6PooorrPy0KKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKr3C8hqsVBcjgGgBsC5OSBirNQW+7Bz0qegAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAqFo4yeTgn3qamsgZgT2oAEQIMAU6gdKKACopXC7e5zTnkC8dWoVTgFutADh0paKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKD0NFB6GgD5x1//kZdU/6/Jv8A0M0Ua/8A8jLqn/X5N/6GaK5Jbn6lhP8Ad4ei/I+jqKKK6z8tCiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACmuu5cU6igCGMMh2bSV9alxnmlooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACk7UtFAEaxhWLdSakoooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKD0NFB6GgD5w8Qf8AIyap/wBfk3/oZoo8Qf8AIyap/wBfk3/oZorklufqWE/gQ9F+R9H0UUV1n5aFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUHoaKKAPnDxB/yMmqf9fk3/oZooorklufqWE/3eHovyP/Z" alt="CASA" />
+    <div class="header-divider"></div>
+    <div class="header-text">
+      <h1>Valoraciones de Cursos</h1>
+      <p>Notas y opiniones de estudiantes CASA · Barcelona · Fall 2024 &amp; 2025</p>
+    </div>
+    <span class="header-badge">Semestre de Fall</span>
+  </div>
+</header>
+<div class="container">
+  <div class="stats-row" id="stats"></div>
+  <div class="top-bar">
+    <input type="text" id="search" placeholder="Buscar curso, profesor, departamento..." oninput="render()" />
+    <select id="uni-filter" onchange="render()"><option value="">Todas las universidades</option></select>
+    <select id="dept-filter" onchange="render()"><option value="">Todas las facultades</option></select>
+    <select id="sort" onchange="render()">
+      <option value="name">Ordenar: A-Z</option>
+      <option value="nota-desc">Nota: mayor primero</option>
+      <option value="nota-asc">Nota: menor primero</option>
+      <option value="comments">Mas resenas primero</option>
+    </select>
+  </div>
+  <div class="course-list" id="list"></div>
+  <p class="disclaimer">* Los nombres de los estudiantes mostrados son ficticios para proteger su privacidad.</p>
+</div>
+<script>
+const COURSES = [
+  { id:1, name:"Genero e Identidades", code:"364263", uni:"UB", dept:"Geografia e Historia", profesor:"R. Lazaro", grupo:"B1", comments:[
+    { name:"Mia", nota_academica:7.5, text:"Bien, pero la clase es mas de escuchar que de discutir. Evaluacion: ensayos cada 2 sesiones + 1 presentacion individual + 1 colectiva. Lo recomendaria." },
+    { name:"Sofia", nota_academica:8.5, text:"No hay examenes, toda la nota son comentarios cada 2 semanas, y tambien un grupo de presentacion/proyecto en diciembre. Lecturas un poco aburridas, la nota es la mas importante." },
+    { name:"Layla", nota_academica:9, text:"Profesora ok, simpatica, un poco caotica. Dificil comunicarse con ella, tanto en clase como por correo (no responde)." },
+    { name:"Chloe", nota_academica:9, text:"La clase esta bien, profesora ok. Clase desorganizada. Es facil seguirla, pero habla un poco rapido." },
+    { name:"Noa", nota_academica:8.5, text:"Me gusta mucho, profesora muy clara a la hora de hablar y explicar, clase interesante y esta muy claro que hay que hacer en los trabajos." }
+  ]},
+  { id:2, name:"Salud y Bienestar", code:"360934", uni:"UB", dept:"Economia", profesor:"Pedro Gallo", grupo:"C1", comments:[
+    { name:"Sofia", nota_academica:8, text:"Contenido interesante si te interesa la politica y la salud. Vemos muchos videos y ted talks. Examenes practicos." },
+    { name:"Emma", nota_academica:9.7, text:"Me gusta mucho, profesor muy simpatico. Habla mucho sobre las diferencias entre sistemas de salud. Examen facil. Lo recomendaria." },
+    { name:"Layla", nota_academica:9, text:"Me gusta el profesor, es una clase facil. Es interesante." },
+    { name:"Chloe", nota_academica:9, text:"Muy bien, profesor que entiende la situacion y hace todo para favorecer la participacion." },
+    { name:"Lena", nota_academica:9.4, text:"Muy interesante." },
+    { name:"Dara", nota_academica:9.2, text:"El profe es amable, facil de entender. Sigue el plan docente. No he ido a todas las clases, pero cuando voy no aprendo mucho mas de lo que hay en los powerpoints." },
+    { name:"Remi", nota_academica:6.6, text:"" },
+    { name:"Theo", nota_academica:6.4, text:"" },
+    { name:"Zuri", nota_academica:9.7, text:"" }
+  ]},
+  { id:3, name:"Historia de la Cultura", code:"360909", uni:"UB", dept:"Filosofia", profesor:"Elena Laurenzi", grupo:"B1", comments:[
+    { name:"Sofia", nota_academica:6.5, text:"Examenes mas memoristicos. Clases interesantes. Lector invitado. Temas muy abstractos, lo que puede ayudar para escribir. Parte de la nota final es un proyecto en grupo." }
+  ]},
+  { id:4, name:"La Il.lustracio Espanyola: Literatura i Pensament", code:"361028", uni:"UB", dept:"Filologia y Comunicacion", profesor:"Blanca Ripoll", grupo:"G2", comments:[
+    { name:"Emma", nota_academica:10, text:"Al principio no parecia muy interesante, pero la profesora la hizo mas interesante. No tengo problemas para seguirla." },
+    { name:"Jazlyn", nota_academica:10, text:"A veces la profesora es un poco dificil de entender, pero me gusta mucho. Las lecturas son complicadas." },
+    { name:"Barbara", nota_academica:9, text:"" },
+    { name:"Melanie", nota_academica:9, text:"" },
+    { name:"Judith", nota_academica:6, text:"" },
+    { name:"Elizabeth", nota_academica:6, text:"" }
+  ]},
+  { id:5, name:"Sociologia del Futuro", code:"360946", uni:"UB", dept:"Economia", profesor:"Jose Antonio Rodriguez Diaz", grupo:"C1", comments:[
+    { name:"Emma", nota_academica:9, text:"Me gusta mucho. El profesor usa muchas fuentes en ingles. No hay examenes. Interesante y muy diferente." },
+    { name:"Zara", nota_academica:9.5, text:"Profesor muy amable, con experiencia en EEUU. Mucho trabajo pero no muy dificil. No hay examenes. 2 presentaciones y papers." },
+    { name:"Benny", nota_academica:null, text:"muy aburrido, pero muy facil tambien." },
+    { name:"Amy", nota_academica:9, text:"" },
+    { name:"May", nota_academica:8.5, text:"" },
+    { name:"Luca", nota_academica:10, text:"Awesome, aunque es un poco despistado, se confundio con el horario, y nos dio mucho trabajo." }
+  ]},
+  { id:6, name:"Picasso, Dali y Miro", code:"", uni:"CASA-UB", dept:"Geografia e Historia", profesor:"Michela Rosso", grupo:"", comments:[
+    { name:"Mia", nota_academica:6.3, text:"Me encanta. Buena seleccion." },
+    { name:"Emma", nota_academica:10, text:"Genial, ella es genial." },
+    { name:"Diego", nota_academica:9.9, text:"Super buena, profesora de mis favoritas, muy amable, clase muy interesante, y muy accesible a la hora de hablar y exponer." },
+    { name:"Yara", nota_academica:8.8, text:"Es muy simpatica, quiere ayudar. Explica las obras de arte claramente." },
+    { name:"Luca", nota_academica:9.2, text:"Me gusta tener tareas cada semana, y aunque no sea mucho ver que estoy aprendiendo. Ella es muy maja." },
+    { name:"Petra", nota_academica:5.7, text:"Me gusta la clase, trabajo, pero me gustaria tener mas feedback. Profesora ok." },
+    { name:"Noa", nota_academica:8.9, text:"Buena profesora, a veces los trabajos no son muy claros." }
+  ]},
+  { id:7, name:"Materiales para la Ingenieria", code:"360296", uni:"UB", dept:"Quimica", profesor:"Adela Svobodova Sedlackova", grupo:"M1", comments:[
+    { name:"Zara", nota_academica:7.6, text:"Profesora simpatica, habla muy claro, accesible y abierta a preguntas. Evaluacion: 2 examenes, mitad y mitad." }
+  ]},
+  { id:8, name:"Advanced Synthetic Biology", code:"22148", uni:"UPF", dept:"Biomedicina", profesor:"Javier Santos Moreno", grupo:"", comments:[
+    { name:"Zara", nota_academica:8.3, text:"Clase en ingles. La estructura esta ok, aunque el contenido no me convence. Clases muy teoricas. 2 proyectos interesantes y 1 examen. Clases pequenas." }
+  ]},
+  { id:9, name:"Analisis Matematico", code:"360158", uni:"UB", dept:"Matematicas e Informatica", profesor:"Ma Carmen Cascante", grupo:"", comments:[
+    { name:"DeShawn", nota_academica:9.4, text:"En catalan. Es una obligacion, aunque esta bien. Los profesores estan ayudando en la medida de sus posibilidades." }
+  ]},
+  { id:10, name:"Estadistica I", code:"363647", uni:"UB", dept:"Matematicas e Informatica", profesor:"Susana Marin / Fco. Llorente", grupo:"D1", comments:[
+    { name:"DeShawn", nota_academica:10, text:"Es super facil, es una introduccion. El primer mes fue mediana, media e interpretar los trazos. Es aburrida." }
+  ]},
+  { id:11, name:"Teoria de Juegos", code:"366764", uni:"UB", dept:"Economia", profesor:"Carlos Rafels / Oihane Gallo", grupo:"", comments:[
+    { name:"DeShawn", nota_academica:8.4, text:"Probablemente en el medio en cuanto a nivel. Facil pero no tan aburrida, aprendo mas. Recomendaria si estas interesado en Mates/Economia." }
+  ]},
+  { id:12, name:"Historia Economica de los siglos XX y XXI", code:"366744", uni:"UB", dept:"Economia", profesor:"Ramon Ramon Munoz", grupo:"E1", comments:[
+    { name:"Layla", nota_academica:8, text:"En ingles. El profesor hace la clase interactiva. Muchas practicas, pero solo hay que leer. Hay un examen pero cuenta menos." }
+  ]},
+  { id:13, name:"Sociologia de la Cultura", code:"360936", uni:"UB", dept:"Economia", profesor:"Varios", grupo:"", comments:[
+    { name:"Chloe", nota_academica:7.4, text:"Buena gente, pero el profesor solo habla durante horas sentado. La segunda profesora es mas moderna. Evaluacion: presentacion + paper final en grupo." }
+  ]},
+  { id:14, name:"Diseno de Software", code:"364303", uni:"UB", dept:"Matematicas e Informatica", profesor:"Albert Clapes", grupo:"T1", comments:[
+    { name:"Mia", nota_academica:null, text:"Es muy intensivo al tomar 3 sesiones distintas. Clases tipo lectures, y 2 sesiones en grupos de trabajo mas practico." }
+  ]},
+  { id:15, name:"Ingenieria de Software", code:"364316", uni:"UB", dept:"Matematicas e Informatica", profesor:"Eloy Puertas", grupo:"T1", comments:[
+    { name:"Mia", nota_academica:8.4, text:"Me gusta, el es muy amigable. El curso es tipo lecture, y como evaluacion se ha de disenar un sitio web. No muy exigente." }
+  ]},
+  { id:16, name:"Ilustracion Creativa", code:"366484", uni:"UB", dept:"Bellas Artes", profesor:"Marta Maria Lafuente", grupo:"M1", comments:[
+    { name:"Javier", nota_academica:7.3, text:"Buen complemento para clases que he tomado antes. Profesora muy amable y calmada, que especifica que hay que hacer para la siguiente semana y se prepara bien la clase." }
+  ]},
+  { id:17, name:"Vision Artificial", code:"364315", uni:"UB", dept:"Matematicas e Informatica", profesor:"Petia Ivanova", grupo:"", comments:[
+    { name:"Rasheed", nota_academica:6.2, text:"Me gusta mucho. Evaluacion: Mid term, proyecto y examen final en remoto en enero y sin vigilar." }
+  ]},
+  { id:18, name:"Desarrollo en la Infancia", code:"361080", uni:"UB", dept:"Psicologia", profesor:"Montserrat Celdran y Maite Duran", grupo:"M4", comments:[
+    { name:"Kashton", nota_academica:null, text:"Prof. Montserrat Celdran (clase magistral). Prof. Maite Duran (tutorias), mas estricta, pero muy amable. Muy buen curso, contenido y profesoras (habla rapido y con acento, hay que prestar atencion)." },
+    { name:"Amberly", nota_academica:7.4, text:"" },
+    { name:"Arizona", nota_academica:7.2, text:"" },
+    { name:"Kaithlyn", nota_academica:7.2, text:"" },
+    { name:"Alex", nota_academica:7.3, text:"" },
+    { name:"Jo", nota_academica:7.7, text:"" },
+    { name:"Bella", nota_academica:8, text:"" },
+    { name:"Sofia", nota_academica:8.7, text:"" },
+    { name:"Petra", nota_academica:8, text:"Muy buena profesora, accesible. Tema interesante, trabajo no muy dificil, sencillo de entender." }
+  ]},
+  { id:19, name:"Sociedad, Salud y Bienestar", code:"361048", uni:"UB", dept:"Psicologia", profesor:"Angela Castrechini", grupo:"M5", comments:[
+    { name:"Keira", nota_academica:8.6, text:"Me gusta mucho porque tiene clases magistrales y seminarios. Para la evaluacion, solo hay una presentacion y un examen final." },
+    { name:"Jo", nota_academica:8.2, text:"" },
+    { name:"Adriana", nota_academica:7.5, text:"" }
+  ]},
+  { id:20, name:"Analisis de la Comunicacion Social y las Redes Sociales", code:"367474", uni:"UB", dept:"Psicologia", profesor:"Angela Castrechini y Yirsa Jimenez", grupo:"M5", comments:[
+    { name:"Alex", nota_academica:7.9, text:"Prof. Castrechini (muy amable) y Prof. Yirsa Jimenez (un poco desorganizada). Clase un poco desorganizada, pero contenido interesante." }
+  ]},
+  { id:21, name:"Dibujo I", code:"210101", uni:"UPC", dept:"Arquitectura", profesor:"Hector Mendoza", grupo:"T2", comments:[
+    { name:"Javier", nota_academica:8.3, text:"Muy bien organizada, comentarios/consejos/trabajos semanales. Hago dibujo tecnico a mano y croquis. Me gusta mucho. Profesores muy amables." }
+  ]},
+  { id:22, name:"Ciudades en la Historia", code:"210285", uni:"UPC", dept:"Arquitectura", profesor:"Eulalia Gomez", grupo:"1SM", comments:[
+    { name:"Matt", nota_academica:4, text:"Hay una clase magistral cada semana sobre varias ciudades. Profesora amable y calmada. Hacemos tours por la ciudad." }
+  ]},
+  { id:23, name:"La Arquitectura Moderna en Espana: una Vision Critica", code:"210301", uni:"UPC", dept:"Arquitectura", profesor:"Carolina Garcia", grupo:"1SM", comments:[
+    { name:"George", nota_academica:8.5, text:"Tres profesores. Clase teorica semanal, mucho contenido. Hacen tours por la ciudad. La mitad de los estudiantes son internacionales." }
+  ]},
+  { id:24, name:"Teoria Politica II", code:"21683", uni:"UPF", dept:"Derecho", profesor:"Por confirmar", grupo:"G1", comments:[
+    { name:"Bedansh", nota_academica:8.2, text:"Clase no muy organizada, profesor amable. Buen contenido." }
+  ]},
+  { id:25, name:"Historia de la Comunicacion", code:"367835", uni:"UB", dept:"Filologia y Comunicacion", profesor:"Olatz Larrea", grupo:"G1", comments:[
+    { name:"Bedansh", nota_academica:9.1, text:"Profesora muy divertida. Los alumnos son un poco ruidosos y algunos hablan en catalan, lo que les impide participar en los debates. Evaluacion: tres presentaciones y una es la final." },
+    { name:"Kim", nota_academica:9, text:"Muy facil, buena profesora." }
+  ]},
+  { id:26, name:"Fundamentos de administracion y direccion de empresa", code:"363953", uni:"UB", dept:"Filologia y Comunicacion", profesor:"Jose Luis Mason Guerra", grupo:"G1", comments:[
+    { name:"Amara", nota_academica:8, text:"Es un poco dificil porque el profe tiene una forma de hablar dificil de entender." }
+  ]},
+  { id:27, name:"Derecho internacional publico", code:"362456", uni:"UB", dept:"Derecho", profesor:"Laura Luisa Huici", grupo:"M1", comments:[
+    { name:"Yusuf", nota_academica:7, text:"Curso dificil, sobre todo por el vocabulario. Importante hablar mucho con la profesora." }
+  ]},
+  { id:28, name:"Bioinorganica", code:"361149", uni:"UB", dept:"Quimica", profesor:"Gabriel Aullon", grupo:"T1", comments:[
+    { name:"Mei-Ling", nota_academica:7.6, text:"Durante la clase es muy dificil seguir el contenido. He pedido un tutor. Hablo con el profesor cada dia para repasar los contenidos." }
+  ]},
+  { id:29, name:"Teoria literaria feminista y estudios de genero", code:"360124", uni:"UB", dept:"Filologia y Comunicacion", profesor:"Annalisa Mirizio", grupo:"G1", comments:[
+    { name:"Fatima", nota_academica:9, text:"Me gusta la clase, es mas estilo estadounidense, y las lecturas estan a menudo en ingles. Los estudiantes locales hablan en catalan en la clase." }
+  ]},
+  { id:30, name:"Cervantes y la poetica de la novela", code:"361111", uni:"UB", dept:"Filologia y Comunicacion", profesor:"Gaston Gilabert / Gemma Gorga", grupo:"G1/G2", comments:[
+    { name:"Marcus", nota_academica:5.5, text:"No entiendo el curso. Tomo apuntes, pero no tanto como los estudiantes locales. Voy a ir a la oficina para hablar con el profesor y pedir un tutor." },
+    { name:"Lily", nota_academica:5, text:"Mi profesora favorita, habla muy lento y es facil de entender. Explica todos los detalles del libro y lo hace interesante." },
+    { name:"Diego", nota_academica:6.5, text:"Interesante, profesora increible. Clase muy teorica, mas enfocada en esto que en la lectura. Clase mas bien dificil." }
+  ]},
+  { id:31, name:"Antropologia y feminismo", code:"360080", uni:"UB", dept:"Geografia e Historia", profesor:"Silvia De Zordo", grupo:"B1", comments:[
+    { name:"Nadia", nota_academica:8.6, text:"La profe es controvertida. Tiene opiniones fuertes y si no estas de acuerdo te va a decir que no tienes razon. El estilo es muy diferente al de EE.UU. Es un poco intenso. Hay un monton de informacion y hay que estar muy atenta. Me gusta el reto y el estilo de aprendizaje." },
+    { name:"Kenji", nota_academica:6.6, text:"" },
+    { name:"Yara", nota_academica:9.1, text:"Profesora dice cosas inapropiadas en clase. Es impuntual, poco accesible, no responde preguntas." },
+    { name:"Ines", nota_academica:8, text:"Poco accesible, un poco agresiva en clase con los alumnos que intervienen, interrumpe mucho. Episodio dificil con ella. Estilo muy diferente a EEUU." },
+    { name:"Petra", nota_academica:7.4, text:"Clase interesante, pero tiene conflicto con el resto de los estudiantes, pues ellos quieren hablar en catalan. Profesora interesante, aunque dice cosas raras, estilo muy diferente a EEUU." },
+    { name:"Noa", nota_academica:4.1, text:"Clase buena para erasmus por su dominio de las lenguas. Ella es interesante, pero es un poco rude. En las clases lee el texto de las presentaciones. El material es interesante, pero la profesora no." }
+  ]},
+  { id:32, name:"Antropologia del turismo", code:"360095", uni:"UB", dept:"Geografia e Historia", profesor:"Fabiola Mancinelli", grupo:"", comments:[
+    { name:"Aaliya", nota_academica:9.2, text:"Es facil. No hay mucho que hacer, solo un par de ejercicios. Es interesante y la profe nos pide comentarios despues de cada clase." },
+    { name:"Kofi", nota_academica:8.4, text:"Sujeto interesante, y al tener trabajos de grupo resulta mas facil conocer estudiantes locales. Profesora bien." },
+    { name:"Yara", nota_academica:8.7, text:"Esta bien. Mas accesible, explica los trabajos mas claramente." },
+    { name:"Ines", nota_academica:8.3, text:"Me gusta, es mas accesible, buen estilo de ensenanza. Clara con lo que el estudiante debe hacer para pasar la materia." },
+    { name:"Tariq", nota_academica:9, text:"Habla claramente, un poco repetitiva. La asignatura esta bien en general." }
+  ]},
+  { id:33, name:"Genero y diferencia sexual", code:"360878", uni:"UB", dept:"Educacion", profesor:"Amparo Chumacero", grupo:"", comments:[
+    { name:"Simone", nota_academica:7.7, text:"Me encanta la clase. La profesora es muy inspiradora. Es un seminario y los estudiantes hacemos debates en grupo y discusiones. Tienes que hacer un diario." },
+    { name:"Luca", nota_academica:8.9, text:"Awesome. Claro, ella es muy interesante, es la clase en la que mas he aprendido. La clase es extraordinaria, lecturas frecuentes, en lenguas diferentes, traducidas a espanol e ingles, lo que facilita el trabajo." }
+  ]},
+  { id:34, name:"Narrativa espanola del siglo XX", code:"", uni:"UB", dept:"Filologia y Comunicacion", profesor:"Gemma Marquez", grupo:"", comments:[
+    { name:"Isabeau", nota_academica:null, text:"Es interesante, aunque menos que otras clases de literatura. Me gusta su estilo de hablar y explicar las cosas, pero las clases son muy densas. Clases magistrales." }
+  ]},
+  { id:35, name:"Literatura hispanoamericana hasta el modernismo", code:"361030", uni:"UB", dept:"Filologia y Comunicacion", profesor:"Mercedes Serna", grupo:"", comments:[
+    { name:"Lily", nota_academica:7, text:"Mas o menos, materia dificil, aunque ella es un poco estricta como maestra. Pero no esta demasiado mal. Interesante para gente interesada en este topico." },
+    { name:"Kofi", nota_academica:null, text:"Es un poco aburrido, y ademas no hay seguimiento de la asignatura, al no haber entregas, ni feedback." }
+  ]},
+  { id:36, name:"Historia economica mundial", code:"366714", uni:"UB", dept:"Economia", profesor:"Sergio Lozano y Oscar Rojano", grupo:"B2", comments:[
+    { name:"Lily", nota_academica:5.4, text:"Esta bien, muy acorde a lo que estudia. Profesor muy claro, examenes justos, material muy concreto y sencillo de entender." },
+    { name:"Kofi", nota_academica:5, text:"Aprendo mas con el profesor Lozano, ya que tiene un powerpoint y explica los contenidos; el profesor Rojano es mas aburrido, no explica mucho, esta un poco desfasado." }
+  ]},
+  { id:37, name:"Historia del pensamiento economico", code:"361853", uni:"UB", dept:"Economia", profesor:"Francisco San Julian", grupo:"", comments:[
+    { name:"Kofi", nota_academica:8.5, text:"Cuesta un poco entender al profesor, pero el curso es interesante." }
+  ]},
+  { id:38, name:"Filosofia politica I", code:"360973", uni:"UB", dept:"Filosofia", profesor:"Inigo G. Ricoy", grupo:"A1", comments:[
+    { name:"Seren", nota_academica:7.4, text:"Muy interesante pero dificil, profesor antipatico." },
+    { name:"Amaru", nota_academica:7.2, text:"" },
+    { name:"Zola", nota_academica:6.2, text:"" }
+  ]},
+  { id:39, name:"Filosofia de la ciencia y la tecnologia I", code:"363797", uni:"UB", dept:"Filosofia", profesor:"Jose Diaz", grupo:"", comments:[
+    { name:"Seren", nota_academica:9.2, text:"Creo que bien. Clases dificiles pero accesibles. Feedback semanal sobre la lectura." }
+  ]},
+  { id:40, name:"Matematicas I", code:"366710", uni:"UB", dept:"Matematicas e Informatica", profesor:"Pedro Purroy", grupo:"", comments:[
+    { name:"Seren", nota_academica:9.3, text:"Bien, la nota son los examenes." }
+  ]},
+  { id:41, name:"Evaluacion de Impactos Ambientales", code:"362328", uni:"UB", dept:"Geografia e Historia", profesor:"Mariano Moreno", grupo:"A1", comments:[
+    { name:"Ines", nota_academica:6.8, text:"Me gusta, informacion muy interesante del curso. Mapas interactivos en el board que son interesantes. Feedback valioso." }
+  ]},
+  { id:42, name:"Pedagogia Internacional", code:"360726", uni:"UB", dept:"Educacion", profesor:"Geo Saura Casanova", grupo:"T1", comments:[
+    { name:"Kofi", nota_academica:5, text:"Me gusta el profesor y el tema, aunque a los alumnos no parecen gustarles los americanos de la clase." }
+  ]},
+  { id:43, name:"Tecnicas de direccion Cinematografica", code:"103035", uni:"UAB", dept:"Filologia y Comunicacion", profesor:"Por confirmar", grupo:"G1", comments:[
+    { name:"Luca", nota_academica:9, text:"Habla con un acento muy fuerte de catalan, pero es cool, no hay mucho trabajo, y el profesor es muy flexible." }
+  ]}
+
+];
+
+function avgNota(c){ const v=c.comments.filter(x=>x.nota_academica!=null); return v.length?v.reduce((s,x)=>s+x.nota_academica,0)/v.length:null; }
+function colorClass(n){ return n==null?"nd":n>=8?"alta":n>=6?"media":"baja"; }
+function initials(name){ return name.split(" ").map(w=>w[0]).join("").slice(0,2).toUpperCase(); }
+function fmtNota(n){ return n==null?"N/D":n.toFixed(1); }
+function badgeClass(uni){ return uni==="UPF"?"badge-upf":uni==="CASA-UB"?"badge-casa":uni==="UAB"?"badge-uab":uni==="UPC"?"badge-upc":"badge-ub"; }
+
+let openId=null;
+function toggle(id){ openId=openId===id?null:id; render(); }
+
+function render(){
+  const q=document.getElementById("search").value.toLowerCase();
+  const uni=document.getElementById("uni-filter").value;
+  const sort=document.getElementById("sort").value;
+  const dept=document.getElementById("dept-filter").value;
+  let list=COURSES.filter(c=>(!q||c.name.toLowerCase().includes(q)||c.profesor.toLowerCase().includes(q)||c.dept.toLowerCase().includes(q))&&(!uni||c.uni===uni)&&(!dept||c.dept===dept));
+  if(sort==="nota-desc") list.sort((a,b)=>(avgNota(b)||0)-(avgNota(a)||0));
+  else if(sort==="nota-asc") list.sort((a,b)=>(avgNota(a)||10)-(avgNota(b)||10));
+  else if(sort==="comments") list.sort((a,b)=>b.comments.length-a.comments.length);
+  else list.sort((a,b)=>a.name.localeCompare(b.name,"es"));
+  const validC=COURSES.filter(c=>avgNota(c)!=null);
+  const globalAvg=validC.length?(validC.reduce((s,c)=>s+avgNota(c),0)/validC.length).toFixed(1):"N/D";
+  const totalComments=COURSES.reduce((s,c)=>s+c.comments.length,0);
+  document.getElementById("stats").innerHTML=`<div class="stat"><div class="stat-label">Cursos</div><div class="stat-value">${COURSES.length}</div></div><div class="stat"><div class="stat-label">Nota media global</div><div class="stat-value">${globalAvg}</div></div><div class="stat"><div class="stat-label">Resenas totales</div><div class="stat-value">${totalComments}</div></div><div class="stat"><div class="stat-label">Mostrando</div><div class="stat-value">${list.length}</div></div>`;
+  if(!list.length){ document.getElementById("list").innerHTML=`<div class="empty">Sin resultados</div>`; return; }
+  document.getElementById("list").innerHTML=list.map(c=>{
+    const a=avgNota(c);
+    const isOpen=openId===c.id;
+    const metaText=[c.dept,c.code,c.profesor,c.grupo].filter(Boolean).join(" · ");
+    const validComments=c.comments.filter(x=>x.nota_academica!=null);
+    const notaRows=validComments.map(cm=>`<div class="nota-row"><span class="nota-row-name">${cm.name}</span><div class="nota-bar-wrap"><div class="nota-bar" style="width:${(cm.nota_academica/10)*100}%"></div></div><span class="nota-row-val">${cm.nota_academica.toFixed(1)}</span></div>`).join("");
+    const notaPanel=`<div><div class="section-title">Nota academica media</div><div class="nota-panel"><div class="nota-big ${colorClass(a)}">${fmtNota(a)}</div><div class="nota-sub">sobre 10 · ${validComments.length} dato${validComments.length!==1?"s":""}</div><div class="nota-rows">${notaRows||'<span style="font-size:12px;color:var(--gray-mid)">Sin datos de nota aun</span>'}</div></div></div>`;
+    const commentsPanel=`<div><div class="section-title">Valoraciones (${c.comments.length})</div><div class="comments-list">${c.comments.filter(cm=>cm.text).map(cm=>`<div class="comment"><div class="comment-top"><div class="avatar">${initials(cm.name)}</div><span class="comment-author">${cm.name}</span></div><p class="comment-text">${cm.text}</p></div>`).join("")}</div></div>`;
+    return `<div class="course-card ${isOpen?"open":""}"><div class="course-header" onclick="toggle(${c.id})" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')toggle(${c.id})"><span class="uni-badge ${badgeClass(c.uni)}">${c.uni}</span><div class="course-info"><div class="course-name">${c.name}</div><div class="course-meta-text">${metaText}</div></div><div class="course-right"><span class="nota-num ${colorClass(a)}">${fmtNota(a)}</span><span class="nota-label">nota media</span><span class="n-comments"><i class="ti ti-message" style="font-size:12px;vertical-align:-1px;margin-right:2px"></i>${c.comments.length} resena${c.comments.length!==1?"s":""}</span></div><i class="ti ti-chevron-down chevron"></i></div><div class="course-body"><div class="body-grid">${notaPanel}${commentsPanel}</div></div></div>`;
+  }).join("");
+}
+const unis=[...new Set(COURSES.map(c=>c.uni))].sort();
+const sel=document.getElementById("uni-filter");
+unis.forEach(u=>{const o=document.createElement("option");o.value=u;o.textContent=u;sel.appendChild(o);});
+const depts=[...new Set(COURSES.map(c=>c.dept))].sort();
+const dsel=document.getElementById("dept-filter");
+depts.forEach(d=>{const o=document.createElement("option");o.value=d;o.textContent=d;sel2=dsel;o2=document.createElement("option");o2.value=d;o2.textContent=d;dsel.appendChild(o2);});
+render();
+</script>
+</body>
+</html>
