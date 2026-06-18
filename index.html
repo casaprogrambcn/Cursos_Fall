@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <link rel="icon" type="image/jpeg" href="data:image/jpeg;base64,/9j/4AAQ...">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cursos CASA Barcelona — Valoraciones Fall</title>
@@ -90,6 +89,21 @@
     .comment-text { font-size: 13px; color: #333333; line-height: 1.6; font-weight: 400; }
     .empty { text-align: center; padding: 2.5rem; color: var(--gray-mid); font-size: 14px; }
     .disclaimer { font-size: 11px; color: var(--gray-mid); text-align: center; margin-top: 2.5rem; padding-top: 1rem; border-top: 0.5px solid var(--border); font-style: italic; }
+
+    /* ── RECOMMENDATIONS ── */
+    .rec-section { margin-bottom: 1.5rem; border-radius: var(--radius-lg); overflow: hidden; border: 0.5px solid rgba(165,28,48,0.25); }
+    .rec-header { background: var(--crimson); color: white; padding: 14px 18px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; user-select: none; }
+    .rec-header h2 { font-family: var(--serif); font-size: 16px; font-weight: 600; margin: 0; }
+    .rec-header .rec-sub { font-size: 12px; opacity: 0.85; margin-top: 2px; font-weight: 300; }
+    .rec-chevron { font-size: 18px; transition: transform 0.2s; flex-shrink: 0; }
+    .rec-section.open .rec-chevron { transform: rotate(180deg); }
+    .rec-body { display: none; background: var(--white); padding: 20px; }
+    .rec-section.open .rec-body { display: block; }
+    .rec-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    @media(max-width:600px){ .rec-grid { grid-template-columns: 1fr; } }
+    .rec-card { background: var(--gray-light); border-radius: var(--radius-md); padding: 12px 14px; border-left: 3px solid var(--crimson); }
+    .rec-card p { font-size: 13px; color: #333; line-height: 1.6; font-style: italic; }
+    .rec-note { font-size: 11px; color: var(--gray-mid); margin-top: 14px; text-align: right; font-style: italic; }
     @media(max-width:500px){ .header-badge { display: none; } .course-right .n-comments { display: none; } }
   </style>
 </head>
@@ -106,6 +120,31 @@
   </div>
 </header>
 <div class="container">
+  <div class="rec-section" id="rec-section">
+    <div class="rec-header" onclick="toggleRec()" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')toggleRec()">
+      <div>
+        <h2>📋 Recomendaciones para futuros estudiantes</h2>
+        <div class="rec-sub">Consejos sobre seleccion de cursos — estudiantes CASA Spring 2026</div>
+      </div>
+      <i class="ti ti-chevron-down rec-chevron"></i>
+    </div>
+    <div class="rec-body">
+      <div class="rec-grid">
+        <div class="rec-card"><p>"Go to some different classes at the start and don't be afraid to try new things. Ask local students what they know about the class. Be very intentional about talking to teachers and explaining your situation as an abroad student who will be leaving early."</p><p style="text-align:right;font-size:11px;color:var(--crimson-dark);margin-top:6px;font-style:normal;font-weight:600;">— Jordan T., Spring 2026</p></div>
+        <div class="rec-card"><p>"Be patient in the first few weeks — some classes start later, change their times and locations, and are taught in Catalan despite being advertised as Spanish. You will settle into the right classes if you shop persistently!"</p><p style="text-align:right;font-size:11px;color:var(--crimson-dark);margin-top:6px;font-style:normal;font-weight:600;">— Amara K., Spring 2026</p></div>
+        <div class="rec-card"><p>"Try to take classes with other CASA students. It's easier to ask for accommodations or explain your situation when you have other people with you."</p><p style="text-align:right;font-size:11px;color:var(--crimson-dark);margin-top:6px;font-style:normal;font-weight:600;">— Diego R., Spring 2026</p></div>
+        <div class="rec-card"><p>"Make sure to read through the syllabus, attend the first day of class, and read the first day slides so you don't miss any important information."</p><p style="text-align:right;font-size:11px;color:var(--crimson-dark);margin-top:6px;font-style:normal;font-weight:600;">— Priya S., Spring 2026</p></div>
+        <div class="rec-card"><p>"Be careful about what classes you select — make sure you are academically prepared and that the course is a good fit for study abroad students."</p><p style="text-align:right;font-size:11px;color:var(--crimson-dark);margin-top:6px;font-style:normal;font-weight:600;">— Malik W., Spring 2026</p></div>
+        <div class="rec-card"><p>"Take classes that you know previous students have succeeded in, rather than whatever you think might be good for your major, since courses are conducted much differently here."</p><p style="text-align:right;font-size:11px;color:var(--crimson-dark);margin-top:6px;font-style:normal;font-weight:600;">— Yuki N., Spring 2026</p></div>
+        <div class="rec-card"><p>"Really make sure to get an understanding of the workload of classes. Have many back-up options and make a plan beforehand."</p><p style="text-align:right;font-size:11px;color:var(--crimson-dark);margin-top:6px;font-style:normal;font-weight:600;">— Savannah L., Spring 2026</p></div>
+        <div class="rec-card"><p>"Change courses early if you think you are not going to like it, even if it's hard to get the papers signed by professors."</p><p style="text-align:right;font-size:11px;color:var(--crimson-dark);margin-top:6px;font-style:normal;font-weight:600;">— Tariq B., Spring 2026</p></div>
+        <div class="rec-card"><p>"Read syllabi first, then talk to your advisor with specific questions so it's less overwhelming."</p><p style="text-align:right;font-size:11px;color:var(--crimson-dark);margin-top:6px;font-style:normal;font-weight:600;">— Camille O., Spring 2026</p></div>
+        <div class="rec-card"><p>"Take courses that seem either relatively interesting or very easy. It is very annoying having to take a difficult course that you are not interested in while abroad."</p><p style="text-align:right;font-size:11px;color:var(--crimson-dark);margin-top:6px;font-style:normal;font-weight:600;">— Ezra M., Spring 2026</p></div>
+      </div>
+      <p class="rec-note">Respuestas recogidas en la evaluacion final del programa (Spring 2026, n=33)</p>
+    </div>
+  </div>
+
   <div class="stats-row" id="stats"></div>
   <div class="top-bar">
     <input type="text" id="search" placeholder="Buscar curso, profesor, departamento..." oninput="render()" />
@@ -317,6 +356,10 @@ function fmtNota(n){ return n==null?"N/D":n.toFixed(1); }
 function badgeClass(uni){ return uni==="UPF"?"badge-upf":uni==="CASA-UB"?"badge-casa":uni==="UAB"?"badge-uab":uni==="UPC"?"badge-upc":"badge-ub"; }
 
 let openId=null;
+function toggleRec(){
+  const s=document.getElementById("rec-section");
+  s.classList.toggle("open");
+}
 function toggle(id){ openId=openId===id?null:id; render(); }
 
 function render(){
@@ -340,7 +383,7 @@ function render(){
     const metaText=[c.dept,c.code,c.profesor,c.grupo].filter(Boolean).join(" · ");
     const validComments=c.comments.filter(x=>x.nota_academica!=null);
     const notaRows=validComments.map(cm=>`<div class="nota-row"><span class="nota-row-name">${cm.name}</span><div class="nota-bar-wrap"><div class="nota-bar" style="width:${(cm.nota_academica/10)*100}%"></div></div><span class="nota-row-val">${cm.nota_academica.toFixed(1)}</span></div>`).join("");
-    const notaPanel=`<div><div class="section-title">Nota academica media</div><div class="nota-panel"><div class="nota-big ${colorClass(a)}">${fmtNota(a)}</div><div class="nota-sub">sobre 10 · ${validComments.length} dato${validComments.length!==1?"s":""}</div><div class="nota-rows">${notaRows||'<span style="font-size:12px;color:var(--gray-mid)">Sin datos de nota aun</span>'}</div></div></div>`;
+    const notaPanel=`<div><div class="section-title">Nota obtenida por estudiantes CASA</div><div class="nota-panel"><div class="nota-big ${colorClass(a)}">${fmtNota(a)}</div><div class="nota-sub">sobre 10 · ${validComments.length} dato${validComments.length!==1?"s":""}</div><div class="nota-rows">${notaRows||'<span style="font-size:12px;color:var(--gray-mid)">Sin datos de nota aun</span>'}</div></div></div>`;
     const commentsPanel=`<div><div class="section-title">Valoraciones (${c.comments.length})</div><div class="comments-list">${c.comments.filter(cm=>cm.text).map(cm=>`<div class="comment"><div class="comment-top"><div class="avatar">${initials(cm.name)}</div><span class="comment-author">${cm.name}</span></div><p class="comment-text">${cm.text}</p></div>`).join("")}</div></div>`;
     return `<div class="course-card ${isOpen?"open":""}"><div class="course-header" onclick="toggle(${c.id})" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')toggle(${c.id})"><span class="uni-badge ${badgeClass(c.uni)}">${c.uni}</span><div class="course-info"><div class="course-name">${c.name}</div><div class="course-meta-text">${metaText}</div></div><div class="course-right"><span class="nota-num ${colorClass(a)}">${fmtNota(a)}</span><span class="nota-label">nota media</span><span class="n-comments"><i class="ti ti-message" style="font-size:12px;vertical-align:-1px;margin-right:2px"></i>${c.comments.length} resena${c.comments.length!==1?"s":""}</span></div><i class="ti ti-chevron-down chevron"></i></div><div class="course-body"><div class="body-grid">${notaPanel}${commentsPanel}</div></div></div>`;
   }).join("");
